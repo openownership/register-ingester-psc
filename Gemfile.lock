@@ -1,4 +1,12 @@
 GIT
+  remote: git@github.com:openownership/register-common.git
+  revision: 3ef1d97fe367a31eda0e224cef76ab43bbdee955
+  specs:
+    register_common (0.1.0)
+      aws-sdk-s3 (~> 1.105.1)
+      rubyzip (~> 2.3.2)
+
+GIT
   remote: git@github.com:openownership/register-sources-psc.git
   revision: b6d0f0386c79bbf39eef2b6030b521f05e4b1bcb
   specs:
@@ -35,6 +43,22 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    aws-eventstream (1.2.0)
+    aws-partitions (1.617.0)
+    aws-sdk-core (3.132.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.525.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.58.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.105.1)
+      aws-sdk-core (~> 3, >= 3.122.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.4)
+    aws-sigv4 (1.5.1)
+      aws-eventstream (~> 1, >= 1.0.2)
     concurrent-ruby (1.1.10)
     connection_pool (2.2.5)
     countries (4.0.1)
@@ -102,6 +126,7 @@ GEM
     i18n_data (0.13.1)
     ice_nine (0.11.2)
     iso8601 (0.13.0)
+    jmespath (1.6.1)
     minitest (5.15.0)
     multi_json (1.15.0)
     multipart-post (2.1.1)
@@ -141,6 +166,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  register_common!
   register_ingester_psc!
   register_sources_psc!
   rspec (~> 3.0)

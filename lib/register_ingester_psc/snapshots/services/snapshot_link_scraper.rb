@@ -25,7 +25,7 @@ module RegisterIngesterPsc
           links = []
           Nokogiri::HTML(response.body).css('a').each_with_object([]) do |el, acc|
             href = el['href']
-            if href.present? && href.match(FILENAME_REGEX)
+            if href && !href.empty? && href.match(FILENAME_REGEX)
               links << "#{base_url}/#{href}"
             end
           end

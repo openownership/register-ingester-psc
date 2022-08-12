@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-module RegisterIngesterPsc
-  UNITTEST = 1
+unless ENV['TEST'].to_i == 1
+  raise 'not test env!'
 end
 
 require "register_ingester_psc"
-require 'register_ingester_psc/config'
 require 'webmock/rspec'
 
 RSpec.configure do |config|

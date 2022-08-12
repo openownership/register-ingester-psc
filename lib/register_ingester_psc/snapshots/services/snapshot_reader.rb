@@ -1,29 +1,61 @@
+require 'register_common/services/file_reader'
+require 'register_ingester_psc/snapshots/services/snapshot_row_processor'
+require 'register_ingester_psc/config/adapters'
+
 module RegisterIngesterPsc
-  module Services
-    class SnapshotReader
-      def initialize(zip_reader: ZIP_READER)
-        @zip_reader = zip_reader
-      end
+  module Snapshots
+    module Services
+      class SnapshotReader
+        SNAPSHOT_FILE_FORMAT = RegisterCommon::Parsers::FileFormats::JSON
+        SNAPSHOT_COMPRESSION = RegisterCommon::Decompressors::CompressionTypes::GZIP
+        BATCH_SIZE = 100
 
-      def foreach_raw_record_record(stream, compressed: true)
-        data_stream = compressed ? zip_reader.open_stream(stream) : stream
-
-        data_stream.each do |line|
-          line.force_encoding("UTF-8")
-
-          yield Structs::RawDataRecord.new(
-            raw_data: line,
-            etag: JSON.parse(line).dig('data', 'etag')
+        def initialize(
+          s3_adapter: Config::S3_ADAPTER,
+          row_processor: nil,
+          decompressor: nil,
+          parser: nil,
+          batch_size: BATCH_SIZE
+        )
+          @row_processor = row_processor || Services::SnapshotRowProcessor.new
+          @file_reader = RegisterCommon::Services::FileReader.new(
+            s3_adapter: s3_adapter,
+            decompressor: decompressor,
+            parser: parser,
+            batch_size: batch_size
           )
         end
 
-        data_stream.close
+        def read_from_s3(s3_bucket:, s3_path:, file_format: SNAPSHOT_FILE_FORMAT, compression: SNAPSHOT_COMPRESSION)
+          file_reader.read_from_s3(
+            s3_bucket: s3_bucket,
+            s3_path: s3_path,
+            file_format: file_format,
+            compression: compression
+          ) do |batch|
+            rows = batch.map { |row| row_processor.process_row(row) }
+            yield rows
+          end
+        end
+
+        def read_from_local_path(file_path, file_format: SNAPSHOT_FILE_FORMAT, compression: SNAPSHOT_COMPRESSION)
+          file_reader.read_from_local_path(file_path, file_format: file_format, compression: compression) do |batch|
+            rows = batch.map { |row| row_processor.process_row(row) }
+            yield rows
+          end
+        end
+
+        def read_from_stream(stream, file_format: SNAPSHOT_FILE_FORMAT, compression: SNAPSHOT_COMPRESSION)
+          file_reader.read_from_stream(stream, file_format: file_format, compression: compression) do |batch|
+            rows = batch.map { |row| row_processor.process_row(row) }
+            yield rows
+          end
+        end
+
+        private
+
+        attr_reader :row_processor, :file_reader
       end
-
-      private
-
-      attr_reader :zip_reader
-    end
     end
   end
 end
