@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'register_ingester_psc/snapshots/apps/snapshot_ingester'
+
+RegisterIngesterPsc::Snapshots::Apps::SnapshotIngester.bash_call ARGV

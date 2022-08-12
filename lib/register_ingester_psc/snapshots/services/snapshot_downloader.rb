@@ -11,9 +11,11 @@ module RegisterIngesterPsc
         def download(url:, local_path:)
           response = http_adapter.get(url)
 
+          print("DOWNLOADING #{url} TO #{local_path}\n")
           File.open(local_path, 'wb') do |f|
             f.write response.body
           end
+          print("DOWNLOADED #{url} TO #{local_path}\n")
         end
 
         private

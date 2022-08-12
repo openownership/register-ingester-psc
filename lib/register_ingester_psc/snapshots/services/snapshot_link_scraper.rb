@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'nokogiri'
+require 'register_ingester_psc/config/adapters'
 
 module RegisterIngesterPsc
   module Snapshots
@@ -8,7 +9,7 @@ module RegisterIngesterPsc
         FILENAME_REGEX = /^psc-snapshot-\d{4}-\d{2}-\d{2}_\d+of\d+.zip$/
         SOURCE_URL = 'http://download.companieshouse.gov.uk/en_pscdata.html'
 
-        def initialize(http_adapter: HTTP_ADAPTER, source_url: SOURCE_URL)
+        def initialize(http_adapter: Config::Adapters::HTTP_ADAPTER, source_url: SOURCE_URL)
           @http_adapter = http_adapter
           @source_url = source_url
         end

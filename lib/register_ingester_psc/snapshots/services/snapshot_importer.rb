@@ -2,6 +2,7 @@ require 'tmpdir'
 require 'register_common/services/stream_uploader_service'
 require 'register_common/decompressors/decompressor'
 require 'register_ingester_psc/config/adapters'
+require 'register_ingester_psc/snapshots/services/snapshot_downloader'
 
 module RegisterIngesterPsc
   module Snapshots
@@ -22,7 +23,7 @@ module RegisterIngesterPsc
           @stream_uploader_service = stream_uploader_service || RegisterCommon::Services::StreamUploaderService.new(
             s3_adapter: Config::Adapters::S3_ADAPTER
           )
-          @stream_decompressor = stream_decompressor || Decompressors::Decompressor.new
+          @stream_decompressor = stream_decompressor || RegisterCommon::Decompressors::Decompressor.new
           @snapshot_downloader = snapshot_downloader || Services::SnapshotDownloader.new
           @split_size = split_size
           @max_lines = max_lines
@@ -48,6 +49,7 @@ module RegisterIngesterPsc
               stream,
               compression: RegisterCommon::Decompressors::CompressionTypes::ZIP
             ) do |deflated|
+              print("UPLOADING DEFLATED FROM #{local_path} TO #{dst_prefix}\n")
               stream_uploader_service.upload_in_parts(
                 deflated,
                 s3_bucket: s3_bucket,
@@ -55,6 +57,7 @@ module RegisterIngesterPsc
                 split_size: split_size,
                 max_lines: max_lines
               )
+              print("UPLOADED DEFLATED FROM #{local_path} TO #{dst_prefix}\n")
             end
           end
         end
