@@ -13,7 +13,8 @@ module RegisterIngesterPsc
           SnapshotIngester.new.call(import_id: import_id)
         end
 
-        def initialize(snapshot_reader: nil, repository: nil, s3_bucket: nil, split_snapshots_s3_prefix: nil)
+        def initialize(s3_adapter: nil, snapshot_reader: nil, repository: nil, s3_bucket: nil, split_snapshots_s3_prefix: nil)
+          @s3_adapter = s3_adapter || RegisterIngesterPsc::Config::Adapters::S3_ADAPTER
           @snapshot_reader = snapshot_reader || SnapshotReader
           @repository = repository || RegisterSourcesPsc::Repositories::CompanyRecordRepository.new(
             client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT)
@@ -44,7 +45,7 @@ module RegisterIngesterPsc
 
         private
 
-        attr_reader :snapshot_reader, :repository, :s3_bucket, :split_snapshots_s3_prefix
+        attr_reader :snapshot_reader, :repository, :s3_bucket, :split_snapshots_s3_prefix, :s3_adapter
       end
     end
   end
