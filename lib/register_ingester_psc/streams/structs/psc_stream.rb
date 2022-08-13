@@ -10,9 +10,10 @@ module RegisterIngesterPsc
       transform_keys(&:to_sym)
 
       attribute :data, RegisterSourcesPsc::CompanyRecordData
+      attribute? :company_number, Types::String
       attribute :event, PscStreamEvent
       attribute :resource_id, Types::String
-      attribute :resource_kind, PscStreamResourceKinds
+      attribute :resource_kind, Types::String # PscStreamResourceKinds
       attribute :resource_uri, Types::String
     end
   end
