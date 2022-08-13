@@ -73,5 +73,26 @@ RSpec.describe RegisterIngesterPsc::Streams::Clients::PscStream do
         expect(record).to be_a RegisterIngesterPsc::Streams::PscStream
       end
     end
+
+    context 'when timepoint is not provided' do
+      it 'streams from PSC stream API' do
+        expect(http_adapter).to receive(:get).with(
+          "https://stream.companieshouse.gov.uk/persons-with-significant-control",
+          params: {},
+          headers: {
+            Authorization: "Basic YXBpX2tleTo="
+          }
+        ).and_yield sample_record
+
+        records = []
+        subject.read_stream() do |record|
+          records << record
+        end
+
+        record = records.first
+        expect(record).to be_a RegisterIngesterPsc::Streams::PscStream
+      end
+    end
+    
   end
 end

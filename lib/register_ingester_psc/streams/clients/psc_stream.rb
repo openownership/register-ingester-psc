@@ -16,7 +16,7 @@ module RegisterIngesterPsc
           @api_key = api_key || Streams::Config::PSC_STREAM_API_KEY
         end
 
-        def read_stream(timepoint: 3408528)
+        def read_stream(timepoint: nil)
           http_adapter.get(
             URL,
             params: {

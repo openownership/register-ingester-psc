@@ -13,8 +13,8 @@ module RegisterIngesterPsc
             client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT)
         end
 
-        def call
-          stream_client.read_stream(timepoint: nil) do |record|
+        def call(timepoint: nil)
+          stream_client.read_stream(timepoint: timepoint) do |record|
             repository.store([record])
 
             # TODO: store offset
