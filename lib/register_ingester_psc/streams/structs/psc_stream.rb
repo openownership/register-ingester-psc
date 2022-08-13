@@ -1,27 +1,18 @@
+require 'register_sources_psc/structs/company_record'
+
+require 'register_ingester_psc/types'
+require 'register_ingester_psc/streams/structs/psc_stream_event'
+require 'register_ingester_psc/streams/enums/psc_stream_resource_kinds'
+
 module RegisterIngesterPsc
   module Streams
-    PscStreamResourceKinds = Types::String.enum(
-      'company-profile#company-profile',
-      'filing-history#filing-history'
-    )
-
-    PscStreamEventTypes = Types::String.enum(
-      'changed',
-      'deleted'
-    )
-
-    class PscStreamEvent < Dry::Struct
-      attribute :fields_changed, Types.Array(Types::String).optional.default(nil)
-      attribute :published_at, Types::Nominal::DateTime
-      attribute :timepoint, Types::Nominal::Integer
-      attribute :type, PscStreamEventTypes
-    end
-
     class PscStream < Dry::Struct
-      attribute :data, Types::Any # Types::Nominal::Hash
+      transform_keys(&:to_sym)
+
+      attribute :data, RegisterSourcesPsc::CompanyRecordData
       attribute :event, PscStreamEvent
       attribute :resource_id, Types::String
-      attribute :resource_kind, Types::String # PscStreamResourceKinds
+      attribute :resource_kind, PscStreamResourceKinds
       attribute :resource_uri, Types::String
     end
   end
