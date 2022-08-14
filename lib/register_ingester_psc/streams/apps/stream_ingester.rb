@@ -19,7 +19,6 @@ module RegisterIngesterPsc
         def call(timepoint: nil)
           # "timepoint":4178539,"published_at":"2022-08-13T15:55:01"
           stream_client.read_stream(timepoint: timepoint) do |record|
-            logger.info "RECEIVED RECORD: #{record.to_h}\n"
             repository.store([record])
 
             # TODO: store offset
