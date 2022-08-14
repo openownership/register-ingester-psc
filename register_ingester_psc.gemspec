@@ -30,19 +30,9 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'activesupport', '~>6.1.4.1'
   spec.add_dependency 'countries', '~> 4.0.1'
-  spec.add_dependency 'dotenv'
   spec.add_dependency 'iso8601'
   spec.add_dependency 'rexml'
   spec.add_dependency 'xxhash'
   spec.add_dependency 'geokit'
-
-  spec.add_dependency 'rubyzip', '~> 2.3.2'
-
-  spec.add_dependency 'faraday'
-  spec.add_dependency 'faraday_middleware'
-  spec.add_dependency 'nokogiri'
-
-  spec.add_dependency 'net-http-persistent', '~> 4.0.1'
 end

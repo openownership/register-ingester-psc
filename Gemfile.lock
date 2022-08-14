@@ -1,9 +1,18 @@
 GIT
   remote: git@github.com:openownership/register-common.git
-  revision: 53ea9ddde6df846dc531927a94fa1046d48aac3d
+  revision: 1cae65961e19f0d842024b49f30c7ea0144617ac
   specs:
     register_common (0.1.0)
+      activesupport
+      aws-sdk-athena
+      aws-sdk-firehose
+      aws-sdk-kinesis
       aws-sdk-s3 (~> 1.105.1)
+      dotenv
+      faraday
+      faraday_middleware
+      net-http-persistent (~> 4.0.1)
+      nokogiri
       rubyzip (~> 2.3.2)
 
 GIT
@@ -19,37 +28,38 @@ PATH
   remote: .
   specs:
     register_ingester_psc (0.1.0)
-      activesupport (~> 6.1.4.1)
       countries (~> 4.0.1)
-      dotenv
-      faraday
-      faraday_middleware
       geokit
       iso8601
-      net-http-persistent (~> 4.0.1)
-      nokogiri
       rexml
-      rubyzip (~> 2.3.2)
       xxhash
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.4.7)
+    activesupport (7.0.3.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.617.0)
+    aws-partitions (1.618.0)
+    aws-sdk-athena (1.56.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sigv4 (~> 1.1)
     aws-sdk-core (3.132.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1, >= 1.6.1)
+    aws-sdk-firehose (1.48.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-kinesis (1.41.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sigv4 (~> 1.1)
     aws-sdk-kms (1.58.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
@@ -160,7 +170,6 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     xxhash (0.5.0)
-    zeitwerk (2.6.0)
 
 PLATFORMS
   x86_64-linux
