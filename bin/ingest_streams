@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'register_ingester_psc/streams/apps/stream_ingester'
+
+RegisterIngesterPsc::Streams::Apps::StreamIngester.bash_call ARGV

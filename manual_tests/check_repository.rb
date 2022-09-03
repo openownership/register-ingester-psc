@@ -11,7 +11,9 @@ company_record_repository = RegisterSourcesPsc::Repositories::CompanyRecordRepos
 
 
 begin
-  record = company_record_repository.get("231a5a1071ef608f60a79a0fce2c3e21e29f00b9")
+  # eb80f74b963afeedcdb80720550381cecdb5c87f (stream)
+  # 231a5a1071ef608f60a79a0fce2c3e21e29f00b9 (snapshots)
+  record = company_record_repository.get("eb80f74b963afeedcdb80720550381cecdb5c87f")
   print record.to_h, "\n"
 rescue => e
   print "ERRORED: #{e}\n"
