@@ -2,9 +2,9 @@ require 'base64'
 require 'json'
 require 'logger'
 
+require 'register_sources_psc/structs/psc_stream'
 require 'register_ingester_psc/config/adapters'
 require 'register_ingester_psc/streams/config'
-require 'register_ingester_psc/streams/structs/psc_stream'
 
 module RegisterIngesterPsc
   module Streams
@@ -37,7 +37,7 @@ module RegisterIngesterPsc
               parsed[:company_number] = match[:company_number]
             end
 
-            yield RegisterIngesterPsc::Streams::PscStream.new(**parsed)
+            yield RegisterSourcesPsc::PscStream.new(**parsed)
           end
         end
 

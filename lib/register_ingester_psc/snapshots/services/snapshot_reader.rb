@@ -11,7 +11,7 @@ module RegisterIngesterPsc
         BATCH_SIZE = 100
 
         def initialize(
-          s3_adapter: Config::S3_ADAPTER,
+          s3_adapter: nil,
           row_processor: nil,
           decompressor: nil,
           parser: nil,
@@ -19,7 +19,7 @@ module RegisterIngesterPsc
         )
           @row_processor = row_processor || Services::SnapshotRowProcessor.new
           @file_reader = RegisterCommon::Services::FileReader.new(
-            s3_adapter: s3_adapter,
+            s3_adapter: s3_adapter || Config::Adapters::S3_ADAPTER,
             decompressor: decompressor,
             parser: parser,
             batch_size: batch_size

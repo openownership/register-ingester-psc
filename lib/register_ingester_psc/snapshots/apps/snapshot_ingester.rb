@@ -3,6 +3,8 @@ require 'register_ingester_psc/config/adapters'
 require 'register_sources_psc/config/elasticsearch'
 require 'register_sources_psc/repositories/company_record_repository'
 
+require 'register_ingester_psc/snapshots/services/snapshot_reader'
+
 module RegisterIngesterPsc
   module Snapshots
     module Apps
@@ -15,7 +17,7 @@ module RegisterIngesterPsc
 
         def initialize(s3_adapter: nil, snapshot_reader: nil, repository: nil, s3_bucket: nil, split_snapshots_s3_prefix: nil)
           @s3_adapter = s3_adapter || RegisterIngesterPsc::Config::Adapters::S3_ADAPTER
-          @snapshot_reader = snapshot_reader || SnapshotReader
+          @snapshot_reader = snapshot_reader || Services::SnapshotReader.new
           @repository = repository || RegisterSourcesPsc::Repositories::CompanyRecordRepository.new(
             client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT)
           @s3_bucket = s3_bucket || ENV.fetch('INGESTER_S3_BUCKET_NAME')

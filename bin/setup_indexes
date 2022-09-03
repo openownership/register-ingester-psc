@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'register_ingester_psc/config/settings'
+
+require 'register_sources_psc/services/es_index_creator'
+
+RegisterSourcesPsc::Services::EsIndexCreator.new.create_company_record_index
