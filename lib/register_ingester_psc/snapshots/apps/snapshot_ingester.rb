@@ -1,9 +1,8 @@
 require 'register_ingester_psc/config/settings'
 require 'register_ingester_psc/config/adapters'
-require 'register_sources_psc/config/elasticsearch'
-require 'register_sources_psc/repositories/company_record_repository'
 
 require 'register_ingester_psc/snapshots/services/snapshot_reader'
+require 'register_ingester_psc/records_handler'
 
 module RegisterIngesterPsc
   module Snapshots
@@ -15,11 +14,10 @@ module RegisterIngesterPsc
           SnapshotIngester.new.call(import_id: import_id)
         end
 
-        def initialize(s3_adapter: nil, snapshot_reader: nil, repository: nil, s3_bucket: nil, split_snapshots_s3_prefix: nil)
+        def initialize(s3_adapter: nil, snapshot_reader: nil, records_handler: nil, s3_bucket: nil, split_snapshots_s3_prefix: nil)
           @s3_adapter = s3_adapter || RegisterIngesterPsc::Config::Adapters::S3_ADAPTER
           @snapshot_reader = snapshot_reader || Services::SnapshotReader.new
-          @repository = repository || RegisterSourcesPsc::Repositories::CompanyRecordRepository.new(
-            client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT)
+          @record_handler ||= RecordsHandler.new
           @s3_bucket = s3_bucket || ENV.fetch('INGESTER_S3_BUCKET_NAME')
           @split_snapshots_s3_prefix = split_snapshots_s3_prefix || ENV.fetch('SPLIT_SNAPSHOTS_S3_PREFIX')
         end
@@ -36,7 +34,7 @@ module RegisterIngesterPsc
             print "STARTED IMPORTING #{s3_path} AT #{Time.now}\n"
 
             snapshot_reader.read_from_s3(s3_bucket: s3_bucket, s3_path: s3_path) do |records|
-              repository.store records
+              record_handler.handle_records records
             end
 
             print "COMPLETED IMPORTING #{s3_path} AT #{Time.now}\n"
@@ -47,7 +45,7 @@ module RegisterIngesterPsc
 
         private
 
-        attr_reader :snapshot_reader, :repository, :s3_bucket, :split_snapshots_s3_prefix, :s3_adapter
+        attr_reader :snapshot_reader, :record_handler, :s3_bucket, :split_snapshots_s3_prefix, :s3_adapter
       end
     end
   end

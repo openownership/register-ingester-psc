@@ -7,7 +7,7 @@ module RegisterIngesterPsc
   module Config
     module Adapters
       HTTP_ADAPTER = RegisterCommon::Adapters::HttpAdapter.new
-      # KINESIS_ADAPTER = RegisterCommon::Adapters::KinesisAdapter.new(credentials: AWS_CREDENTIALS)
+      KINESIS_ADAPTER = RegisterCommon::Adapters::KinesisAdapter.new(credentials: AWS_CREDENTIALS)
       S3_ADAPTER = RegisterCommon::Adapters::S3Adapter.new(credentials: AWS_CREDENTIALS)
     end
   end

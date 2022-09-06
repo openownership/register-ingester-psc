@@ -4,6 +4,7 @@ require 'register_ingester_psc/config/settings'
 require 'register_sources_psc/config/elasticsearch'
 require 'register_sources_psc/repositories/company_record_repository'
 require 'register_ingester_psc/streams/clients/psc_stream'
+require 'register_ingester_psc/records_handler'
 
 module RegisterIngesterPsc
   module Streams
@@ -15,10 +16,9 @@ module RegisterIngesterPsc
           StreamIngester.new.call(timepoint: timepoint)
         end
 
-        def initialize(stream_client: nil, repository: nil)
+        def initialize(stream_client: nil, record_handler: nil)
           @stream_client = stream_client || Streams::Clients::PscStream.new
-          @repository = repository || RegisterSourcesPsc::Repositories::CompanyRecordRepository.new(
-            client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT)
+          @record_handler ||= RecordsHandler.new
           @logger = Logger.new(STDOUT)
         end
 
@@ -26,7 +26,7 @@ module RegisterIngesterPsc
           # "timepoint":4178539,"published_at":"2022-08-13T15:55:01"
           stream_client.read_stream(timepoint: timepoint) do |record|
             print("GOT RECORD: ", record, "\n")
-            repository.store([record])
+            record_handler.handle_records([record])
 
             # TODO: store offset
           end
@@ -34,7 +34,7 @@ module RegisterIngesterPsc
 
         private
 
-        attr_reader :stream_client, :repository, :logger
+        attr_reader :stream_client, :record_handler, :logger
       end
     end
   end
