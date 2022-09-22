@@ -8,6 +8,7 @@ RegisterSourcesPsc::Services::EsIndexCreator.new.create_company_record_index
 
 # BODS test code
 
+if false
 require 'register_sources_oc/services/es_index_creator'
 
 index_creator = RegisterSourcesOc::Services::EsIndexCreator.new
@@ -15,6 +16,7 @@ index_creator = RegisterSourcesOc::Services::EsIndexCreator.new
 index_creator.create_companies_index
 index_creator.create_add_ids_index
 index_creator.create_alt_names_index
+end
 
 require 'register_bods_v2/services/es_index_creator'
 
