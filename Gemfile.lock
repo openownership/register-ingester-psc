@@ -1,4 +1,15 @@
 GIT
+  remote: git@github.com:openownership/register-bods-v2.git
+  revision: 71976a3344a1b3ab75325730e1cf8ea71d953ddb
+  specs:
+    register_bods_v2 (0.1.0)
+      activesupport (~> 6.1)
+      dry-struct (~> 1.4.0)
+      dry-types (~> 1.5.1)
+      elasticsearch (~> 7.10.1)
+      xxhash
+
+GIT
   remote: git@github.com:openownership/register-common.git
   revision: 3e93ea0d93b15ade049184ff48ea159edbe923e6
   specs:
@@ -15,18 +26,9 @@ GIT
       nokogiri
       rubyzip (~> 2.3.2)
 
-PATH
-  remote: ../register-bods-v2
-  specs:
-    register_bods_v2 (0.1.0)
-      activesupport (~> 6.1)
-      dry-struct (~> 1.4.0)
-      dry-types (~> 1.5.1)
-      elasticsearch (~> 7.10.1)
-      xxhash
-
-PATH
-  remote: ../register-sources-oc
+GIT
+  remote: git@github.com:openownership/register-sources-oc.git
+  revision: 9e8ad0897d90e069e280848274e23898e1771a72
   specs:
     register_sources_oc (0.1.0)
       activesupport (~> 6.1)
@@ -41,8 +43,9 @@ PATH
       net-http-persistent (~> 4.0.1)
       rexml
 
-PATH
-  remote: ../register-sources-psc
+GIT
+  remote: git@github.com:openownership/register-sources-psc.git
+  revision: 0f7a55c5b3db4159c57e3d891250543c1c2eda68
   specs:
     register_sources_psc (0.1.0)
       activesupport (~> 6.1)
@@ -75,11 +78,11 @@ GEM
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.633.0)
+    aws-partitions (1.634.0)
     aws-sdk-athena (1.56.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-core (3.151.0)
+    aws-sdk-core (3.152.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
