@@ -1,15 +1,4 @@
 GIT
-  remote: git@github.com:openownership/register-bods-v2.git
-  revision: 5fc694995f7cf387d2476769949f1ba3f6b161f3
-  specs:
-    register_bods_v2 (0.1.0)
-      activesupport (~> 6.1)
-      dry-struct (~> 1.4.0)
-      dry-types (~> 1.5.1)
-      elasticsearch (~> 7.10.1)
-      xxhash
-
-GIT
   remote: git@github.com:openownership/register-common.git
   revision: c75cac3f94dc2ccff866003273c43b8628862080
   specs:
@@ -25,23 +14,6 @@ GIT
       net-http-persistent (~> 4.0.1)
       nokogiri
       rubyzip (~> 2.3.2)
-
-GIT
-  remote: git@github.com:openownership/register-sources-oc.git
-  revision: 447389f808d02f72a42846ee54c6c68ff4a19b88
-  specs:
-    register_sources_oc (0.1.0)
-      activesupport (~> 6.1)
-      countries (~> 4.0.1)
-      dotenv
-      dry-struct (~> 1.4.0)
-      dry-types (~> 1.5.1)
-      elasticsearch (~> 7.10.1)
-      faraday (= 1.9.3)
-      faraday_middleware (~> 1.0)
-      iso8601
-      net-http-persistent (~> 4.0.1)
-      rexml
 
 GIT
   remote: git@github.com:openownership/register-sources-psc.git
@@ -78,11 +50,11 @@ GEM
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.634.0)
+    aws-partitions (1.636.0)
     aws-sdk-athena (1.56.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-core (3.152.0)
+    aws-sdk-core (3.154.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
@@ -137,7 +109,7 @@ GEM
     elasticsearch-transport (7.10.1)
       faraday (~> 1)
       multi_json
-    faraday (1.9.3)
+    faraday (1.10.2)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -209,10 +181,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  register_bods_v2!
   register_common!
   register_ingester_psc!
-  register_sources_oc!
   register_sources_psc!
   rspec (~> 3.0)
   webmock
