@@ -1,9 +1,21 @@
 version: '3.7'
 
 services:
-  
   register_ingester_psc:
-    image: register_ingester_psc
+    image: register_ingester_psc:latest
+    environment:
+      - PSC_STREAM_API_KEY
+      - BODS_S3_BUCKET_NAME
+      - BODS_AWS_REGION
+      - BODS_AWS_ACCESS_KEY_ID
+      - BODS_AWS_SECRET_ACCESS_KEY
+      - SPLIT_SNAPSHOTS_S3_PREFIX
+      - ELASTICSEARCH_HOST
+      - ELASTICSEARCH_PORT
+      - ELASTICSEARCH_PROTOCOL
+      - ELASTICSEARCH_SSL_VERIFY
+      - ELASTICSEARCH_PASSWORD
+      - PSC_STREAM
 
   register_ingester_psc_es:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.5
