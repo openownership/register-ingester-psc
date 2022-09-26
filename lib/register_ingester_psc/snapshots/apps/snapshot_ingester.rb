@@ -18,7 +18,7 @@ module RegisterIngesterPsc
           @s3_adapter = s3_adapter || RegisterIngesterPsc::Config::Adapters::S3_ADAPTER
           @snapshot_reader = snapshot_reader || Services::SnapshotReader.new
           @record_handler ||= RecordsHandler.new
-          @s3_bucket = s3_bucket || ENV.fetch('INGESTER_S3_BUCKET_NAME')
+          @s3_bucket = s3_bucket || ENV.fetch('BODS_S3_BUCKET_NAME')
           @split_snapshots_s3_prefix = split_snapshots_s3_prefix || ENV.fetch('SPLIT_SNAPSHOTS_S3_PREFIX')
         end
 

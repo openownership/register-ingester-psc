@@ -15,7 +15,7 @@ module RegisterIngesterPsc
           stream_uploader_service: nil,
           snapshot_downloader: nil,
           stream_decompressor: nil,
-          s3_bucket: ENV.fetch('INGESTER_S3_BUCKET_NAME'),
+          s3_bucket: ENV.fetch('BODS_S3_BUCKET_NAME'),
           split_size: DEFAULT_SPLIT_SIZE,
           max_lines: DEFAULT_MAX_LINES
         )
