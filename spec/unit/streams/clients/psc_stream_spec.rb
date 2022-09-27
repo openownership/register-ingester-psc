@@ -70,7 +70,7 @@ RSpec.describe RegisterIngesterPsc::Streams::Clients::PscStream do
         end
 
         record = records.first
-        expect(record).to be_a RegisterIngesterPsc::Streams::PscStream
+        expect(record).to be_a RegisterSourcesPsc::PscStream
       end
     end
 
@@ -90,7 +90,7 @@ RSpec.describe RegisterIngesterPsc::Streams::Clients::PscStream do
         end
 
         record = records.first
-        expect(record).to be_a RegisterIngesterPsc::Streams::PscStream
+        expect(record).to be_a RegisterSourcesPsc::PscStream
       end
     end
     

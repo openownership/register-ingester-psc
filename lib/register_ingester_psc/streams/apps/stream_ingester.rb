@@ -16,9 +16,9 @@ module RegisterIngesterPsc
           StreamIngester.new.call(timepoint: timepoint)
         end
 
-        def initialize(stream_client: nil, record_handler: nil)
+        def initialize(stream_client: nil, records_handler: nil)
           @stream_client = stream_client || Streams::Clients::PscStream.new
-          @record_handler ||= RecordsHandler.new
+          @records_handler = records_handler || RecordsHandler.new
           @logger = Logger.new(STDOUT)
         end
 
@@ -26,7 +26,7 @@ module RegisterIngesterPsc
           # "timepoint":4178539,"published_at":"2022-08-13T15:55:01"
           stream_client.read_stream(timepoint: timepoint) do |record|
             print("GOT RECORD: ", record, "\n")
-            record_handler.handle_records([record])
+            records_handler.handle_records([record])
 
             # TODO: store offset
           end
@@ -34,7 +34,7 @@ module RegisterIngesterPsc
 
         private
 
-        attr_reader :stream_client, :record_handler, :logger
+        attr_reader :stream_client, :records_handler, :logger
       end
     end
   end

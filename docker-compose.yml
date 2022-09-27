@@ -3,7 +3,7 @@ version: '3.7'
 services:
   register_ingester_psc:
     image: register_ingester_psc:latest
-    entrypoint: "bundle exec /app/bin/ingest_streams"
+    #entrypoint: "bundle exec /app/bin/ingest_streams"
     environment:
       - PSC_STREAM_API_KEY
       - BODS_S3_BUCKET_NAME

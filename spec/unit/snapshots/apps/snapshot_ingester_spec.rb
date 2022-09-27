@@ -5,7 +5,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Apps::SnapshotIngester do
     described_class.new(
       s3_adapter: s3_adapter,
       snapshot_reader: snapshot_reader,
-      repository: repository,
+      records_handler: records_handler,
       s3_bucket: s3_bucket,
       split_snapshots_s3_prefix: split_snapshots_s3_prefix
     )
@@ -13,12 +13,12 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Apps::SnapshotIngester do
 
   let(:s3_adapter) { double 's3_adapter' }
   let(:snapshot_reader) { double 'snapshot_reader' }
-  let(:repository) { double 'repository' }
+  let(:records_handler) { double 'records_handler' }
   let(:s3_bucket) { double 's3_bucket' }
   let(:split_snapshots_s3_prefix) { 'split_snapshots/s3_prefix' }
 
   describe '#call' do
-    it 'ingests files from S3 into repository' do
+    it 'ingests files from S3 into records_handler' do
       import_id = 'import1'
 
       s3_paths = [double('s3_path1'), double('s3_path2')]
@@ -40,12 +40,12 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Apps::SnapshotIngester do
         s3_path: s3_paths[1]
       ).and_yield records2
 
-      allow(repository).to receive(:store)
+      allow(records_handler).to receive(:handle_records)
 
       subject.call(import_id: import_id)
     
-      expect(repository).to have_received(:store).with(records1)
-      expect(repository).to have_received(:store).with(records2)
+      expect(records_handler).to have_received(:handle_records).with(records1)
+      expect(records_handler).to have_received(:handle_records).with(records2)
     end
   end
 end

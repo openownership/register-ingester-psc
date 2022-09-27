@@ -17,7 +17,7 @@ module RegisterIngesterPsc
         def initialize(s3_adapter: nil, snapshot_reader: nil, records_handler: nil, s3_bucket: nil, split_snapshots_s3_prefix: nil)
           @s3_adapter = s3_adapter || RegisterIngesterPsc::Config::Adapters::S3_ADAPTER
           @snapshot_reader = snapshot_reader || Services::SnapshotReader.new
-          @record_handler ||= RecordsHandler.new
+          @records_handler = records_handler || RecordsHandler.new
           @s3_bucket = s3_bucket || ENV.fetch('BODS_S3_BUCKET_NAME')
           @split_snapshots_s3_prefix = split_snapshots_s3_prefix || ENV.fetch('SPLIT_SNAPSHOTS_S3_PREFIX')
         end
@@ -34,7 +34,7 @@ module RegisterIngesterPsc
             print "STARTED IMPORTING #{s3_path} AT #{Time.now}\n"
 
             snapshot_reader.read_from_s3(s3_bucket: s3_bucket, s3_path: s3_path) do |records|
-              record_handler.handle_records records
+              records_handler.handle_records records
             end
 
             print "COMPLETED IMPORTING #{s3_path} AT #{Time.now}\n"
@@ -45,7 +45,7 @@ module RegisterIngesterPsc
 
         private
 
-        attr_reader :snapshot_reader, :record_handler, :s3_bucket, :split_snapshots_s3_prefix, :s3_adapter
+        attr_reader :snapshot_reader, :records_handler, :s3_bucket, :split_snapshots_s3_prefix, :s3_adapter
       end
     end
   end
