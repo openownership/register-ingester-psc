@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:openownership/register-common.git
-  revision: 1161d5fd59cba5af23bbd49ddc6ebcb23479e789
+  revision: 32506b6f43ba07aa884263d4bf589abd9c3473df
   specs:
     register_common (0.1.0)
       activesupport
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: git@github.com:openownership/register-sources-psc.git
-  revision: dbc85c6437557e7e3d5fc1181f6ea58859fbb820
+  revision: bbbb43ecc11aa60a2c75cd99ddb14cb30c8c780d
   specs:
     register_sources_psc (0.1.0)
       activesupport (~> 6.1)
@@ -51,11 +51,11 @@ GEM
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.636.0)
+    aws-partitions (1.639.0)
     aws-sdk-athena (1.56.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-core (3.154.0)
+    aws-sdk-core (3.157.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
