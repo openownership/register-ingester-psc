@@ -1,31 +1,31 @@
 GIT
   remote: git@github.com:openownership/register-common.git
-  revision: 32506b6f43ba07aa884263d4bf589abd9c3473df
+  revision: c124210c203b85157e1dd0cb58037a420fec4c0f
   specs:
     register_common (0.1.0)
-      activesupport
+      activesupport (>= 6, < 8)
       aws-sdk-athena
       aws-sdk-firehose
       aws-sdk-kinesis
-      aws-sdk-s3 (~> 1.105.1)
+      aws-sdk-s3
       dotenv
-      faraday
-      faraday_middleware
-      net-http-persistent (~> 4.0.1)
+      faraday (>= 1, < 2)
+      faraday_middleware (>= 1, < 2)
+      net-http-persistent
       nokogiri
-      redis (~> 5.0.5)
-      rubyzip (~> 2.3.2)
+      redis (>= 3)
+      rubyzip (>= 2, < 3)
 
 GIT
   remote: git@github.com:openownership/register-sources-psc.git
-  revision: bbbb43ecc11aa60a2c75cd99ddb14cb30c8c780d
+  revision: b056d5ef13d769e7b9edc3f7d5c738b20cd87a89
   specs:
     register_sources_psc (0.1.0)
-      activesupport (~> 6.1)
+      activesupport (>= 6, < 8)
       countries (~> 4.0.1)
-      dry-struct (~> 1.4.0)
-      dry-types (~> 1.5.1)
-      elasticsearch (~> 7.10.1)
+      dry-struct (>= 1, < 2)
+      dry-types (>= 1, < 2)
+      elasticsearch (>= 7.10, < 8)
       iso8601
       xxhash
 
@@ -42,20 +42,19 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.7)
+    activesupport (7.0.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.3)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.639.0)
+    aws-partitions (1.640.0)
     aws-sdk-athena (1.56.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-core (3.157.0)
+    aws-sdk-core (3.158.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
@@ -69,11 +68,11 @@ GEM
     aws-sdk-kms (1.58.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.105.1)
-      aws-sdk-core (~> 3, >= 3.122.0)
+    aws-sdk-s3 (1.114.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
-    aws-sigv4 (1.5.1)
+    aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
     concurrent-ruby (1.1.10)
     connection_pool (2.3.0)
@@ -102,12 +101,12 @@ GEM
       dry-core (~> 0.5, >= 0.5)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
-    elasticsearch (7.10.1)
-      elasticsearch-api (= 7.10.1)
-      elasticsearch-transport (= 7.10.1)
-    elasticsearch-api (7.10.1)
+    elasticsearch (7.17.1)
+      elasticsearch-api (= 7.17.1)
+      elasticsearch-transport (= 7.17.1)
+    elasticsearch-api (7.17.1)
       multi_json
-    elasticsearch-transport (7.10.1)
+    elasticsearch-transport (7.17.1)
       faraday (~> 1)
       multi_json
     faraday (1.10.2)
@@ -180,7 +179,6 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     xxhash (0.5.0)
-    zeitwerk (2.6.0)
 
 PLATFORMS
   x86_64-linux
@@ -193,4 +191,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.3.10
+   2.3.15
