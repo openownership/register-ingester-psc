@@ -5,8 +5,8 @@ require 'register_common/services/publisher'
 
 module RegisterIngesterPsc
   class RecordsProducer
-    def initialize(stream_name: nil, kinesis_adapter: nil, buffer_size: nil, serializer: nil)
-      stream_name ||= ENV['PSC_STREAM']
+    def initialize(stream_name:, kinesis_adapter: nil, buffer_size: nil, serializer: nil)
+      stream_name = stream_name
       kinesis_adapter ||= RegisterIngesterPsc::Config::Adapters::KINESIS_ADAPTER
       buffer_size ||= 50
       serializer ||= RecordSerializer.new

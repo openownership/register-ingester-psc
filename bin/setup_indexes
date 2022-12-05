@@ -4,4 +4,6 @@ require 'register_ingester_psc/config/settings'
 
 require 'register_sources_psc/services/es_index_creator'
 
-RegisterSourcesPsc::Services::EsIndexCreator.new.create_company_record_index
+index_creator = RegisterSourcesPsc::Services::EsIndexCreator.new
+index_creator.create_es_index RegisterSourcesPsc::Config::ES_COMPANY_RECORD_INDEX
+index_creator.create_es_index RegisterSourcesPsc::Config::ES_OVERSEAS_RECORD_INDEX
