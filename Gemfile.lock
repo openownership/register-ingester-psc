@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: git@github.com:openownership/register-sources-psc.git
-  revision: 626b09397c1b6b50f42fb138b4cdd821249f863c
+  revision: 8196fade6536c268badbc3ff751957f7cc01233e
   branch: overseas-entities
   specs:
     register_sources_psc (0.1.0)
@@ -145,7 +145,7 @@ GEM
     ice_nine (0.11.2)
     iso8601 (0.13.0)
     jmespath (1.6.2)
-    minitest (5.16.3)
+    minitest (5.17.0)
     multi_json (1.15.0)
     multipart-post (2.2.3)
     net-http-persistent (4.0.1)
