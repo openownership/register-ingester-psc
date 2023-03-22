@@ -34,7 +34,7 @@ module RegisterIngesterPsc
             print "STARTED IMPORTING #{s3_path} AT #{Time.now}\n"
 
             snapshot_reader.read_from_s3(s3_bucket: s3_bucket, s3_path: s3_path) do |records|
-              records_handler.handle_records records
+              records_handler.handle_records records.compact
             end
 
             print "COMPLETED IMPORTING #{s3_path} AT #{Time.now}\n"

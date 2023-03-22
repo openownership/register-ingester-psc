@@ -9,6 +9,10 @@ module RegisterIngesterPsc
           row = row.transform_keys(&:to_sym)
   
           RegisterSourcesPsc::CompanyRecord[row]
+        rescue => e
+          print "Row failed: ", row, "\n"
+          # raise e
+          nil
         end
       end
     end
