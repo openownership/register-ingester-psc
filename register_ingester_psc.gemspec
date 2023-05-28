@@ -28,8 +28,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'countries', '~> 4.0.1'
+  spec.add_dependency 'geokit'
   spec.add_dependency 'iso8601'
   spec.add_dependency 'rexml'
   spec.add_dependency 'xxhash'
-  spec.add_dependency 'geokit'
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end

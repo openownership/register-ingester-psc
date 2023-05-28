@@ -2,7 +2,7 @@ require 'tmpdir'
 require 'register_ingester_psc/snapshots/services/snapshot_downloader'
 
 RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotDownloader do
-  subject { described_class.new(http_adapter: http_adapter) }
+  subject { described_class.new(http_adapter:) }
 
   let(:http_adapter) { double 'http_adapter' }
 
@@ -16,7 +16,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotDownloader do
       Dir.mktmpdir do |tmpdir|
         local_path = File.join(tmpdir, 'local')
 
-        subject.download(url: url, local_path: local_path)
+        subject.download(url:, local_path:)
 
         expect(File.read(local_path)).to eq fake_body
       end

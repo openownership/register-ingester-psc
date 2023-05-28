@@ -13,11 +13,13 @@ module RegisterIngesterPsc
       roe_producer: nil
     )
       @repository = repository || RegisterSourcesPsc::Repositories::CompanyRecordRepository.new(
-        client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT)
-      @producer = producer || RecordsProducer.new(stream_name: ENV['PSC_STREAM'])
+        client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT,
+      )
+      @producer = producer || RecordsProducer.new(stream_name: ENV.fetch('PSC_STREAM', nil))
       @roe_repository = roe_repository || RegisterSourcesPsc::Repositories::RegisteredOverseasRecordRepository.new(
-        client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT)
-      @roe_producer = roe_producer || RecordsProducer.new(stream_name: ENV['ROE_STREAM'])
+        client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT,
+      )
+      @roe_producer = roe_producer || RecordsProducer.new(stream_name: ENV.fetch('ROE_STREAM', nil))
     end
 
     def handle_records(records)

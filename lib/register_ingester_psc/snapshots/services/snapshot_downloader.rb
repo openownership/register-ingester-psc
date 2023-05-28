@@ -12,9 +12,7 @@ module RegisterIngesterPsc
           response = http_adapter.get(url)
 
           print("DOWNLOADING #{url} TO #{local_path}\n")
-          File.open(local_path, 'wb') do |f|
-            f.write response.body
-          end
+          File.binwrite(local_path, response.body)
           print("DOWNLOADED #{url} TO #{local_path}\n")
         end
 

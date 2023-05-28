@@ -5,11 +5,11 @@ module RegisterIngesterPsc
     module Services
       class SnapshotRowProcessor
         def process_row(row)
-          row = row.transform_values { |v| (v == '') ? nil : v }
+          row = row.transform_values { |v| v == '' ? nil : v }
           row = row.transform_keys(&:to_sym)
-  
+
           RegisterSourcesPsc::CompanyRecord[row]
-        rescue => e
+        rescue StandardError
           print "Row failed: ", row, "\n"
           # raise e
           nil

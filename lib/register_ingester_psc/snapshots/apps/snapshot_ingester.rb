@@ -11,7 +11,7 @@ module RegisterIngesterPsc
         def self.bash_call(args)
           import_id = args[0]
 
-          SnapshotIngester.new.call(import_id: import_id)
+          SnapshotIngester.new.call(import_id:)
         end
 
         def initialize(s3_adapter: nil, snapshot_reader: nil, records_handler: nil, s3_bucket: nil, split_snapshots_s3_prefix: nil)
@@ -26,14 +26,14 @@ module RegisterIngesterPsc
           s3_prefix = File.join(split_snapshots_s3_prefix, "import_id=#{import_id}")
 
           # Calculate s3 paths to import
-          s3_paths = s3_adapter.list_objects(s3_bucket: s3_bucket, s3_prefix: s3_prefix)
+          s3_paths = s3_adapter.list_objects(s3_bucket:, s3_prefix:)
           print "IMPORTING S3 Paths:\n#{s3_paths} AT #{Time.now}\n\n"
 
           # Ingest S3 files
           s3_paths.each do |s3_path|
             print "STARTED IMPORTING #{s3_path} AT #{Time.now}\n"
 
-            snapshot_reader.read_from_s3(s3_bucket: s3_bucket, s3_path: s3_path) do |records|
+            snapshot_reader.read_from_s3(s3_bucket:, s3_path:) do |records|
               records_handler.handle_records records.compact
             end
 

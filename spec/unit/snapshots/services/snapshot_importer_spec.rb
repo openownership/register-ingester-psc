@@ -3,12 +3,12 @@ require 'register_ingester_psc/snapshots/services/snapshot_importer'
 RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotImporter do
   subject do
     described_class.new(
-      stream_uploader_service: stream_uploader_service,
-      snapshot_downloader: snapshot_downloader,
-      stream_decompressor: stream_decompressor,
-      s3_bucket: s3_bucket,
-      split_size: split_size,
-      max_lines: max_lines
+      stream_uploader_service:,
+      snapshot_downloader:,
+      stream_decompressor:,
+      s3_bucket:,
+      split_size:,
+      max_lines:,
     )
   end
 
@@ -36,18 +36,18 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotImporter do
       expect(File).to receive(:open).with(local_path, 'rb').and_yield fake_stream1
       expect(stream_decompressor).to receive(:with_deflated_stream).with(
         fake_stream1,
-        compression: RegisterCommon::Decompressors::CompressionTypes::ZIP
+        compression: RegisterCommon::Decompressors::CompressionTypes::ZIP,
       ).and_yield fake_stream2
 
       subject.import_from_url(url, dst_prefix)
 
-      expect(snapshot_downloader).to have_received(:download).with(url: url, local_path: local_path)
+      expect(snapshot_downloader).to have_received(:download).with(url:, local_path:)
       expect(stream_uploader_service).to have_received(:upload_in_parts).with(
         fake_stream2,
-        s3_bucket: s3_bucket,
+        s3_bucket:,
         s3_prefix: dst_prefix,
-        split_size: split_size,
-        max_lines: max_lines
+        split_size:,
+        max_lines:,
       )
     end
   end

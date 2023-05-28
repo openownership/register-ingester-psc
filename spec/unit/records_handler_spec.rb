@@ -4,10 +4,10 @@ require 'register_ingester_psc/records_handler'
 RSpec.describe RegisterIngesterPsc::RecordsHandler do
   subject do
     described_class.new(
-      repository: repository,
-      producer: producer,
-      roe_repository: roe_repository,
-      roe_producer: roe_producer
+      repository:,
+      producer:,
+      roe_repository:,
+      roe_producer:,
     )
   end
 
@@ -16,12 +16,12 @@ RSpec.describe RegisterIngesterPsc::RecordsHandler do
   let(:roe_repository) { double 'roe_repository' }
   let(:roe_producer) { double 'roe_producer' }
 
-  describe '#handle_records' do 
+  describe '#handle_records' do
     let(:existing_record) { double 'existing_record', roe?: false, data: double(etag: 'etag1') }
     let(:existing_roe_record) { double 'existing_roe_record', roe?: true, data: double(etag: 'etag2') }
     let(:new_record) { double 'existing_record', roe?: false, data: double(etag: 'etag3') }
     let(:new_roe_record) { double 'existing_roe_record', roe?: true, data: double(etag: 'etag4') }
-  
+
     before do
       expect(repository).to receive(:get).with(existing_record.data.etag).and_return true
       expect(roe_repository).to receive(:get).with(existing_roe_record.data.etag).and_return true
@@ -34,7 +34,7 @@ RSpec.describe RegisterIngesterPsc::RecordsHandler do
       allow(producer).to receive(:finalize)
       allow(roe_producer).to receive(:finalize)
     end
-  
+
     it 'stores received records in repository' do
       subject.handle_records [existing_record, existing_roe_record, new_record, new_roe_record]
 

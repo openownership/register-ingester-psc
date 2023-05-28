@@ -9,7 +9,7 @@ require 'active_support/core_ext/object/json'
 
 require_relative 'register_ingester_psc/version'
 
-Time.zone='UTC'
+Time.zone = 'UTC'
 ActiveSupport::JSON::Encoding.use_standard_json_time_format = true
 ActiveSupport::JSON::Encoding.escape_html_entities_in_json = true
 

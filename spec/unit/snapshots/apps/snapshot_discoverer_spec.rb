@@ -3,9 +3,9 @@ require 'register_ingester_psc/snapshots/apps/snapshot_discoverer'
 RSpec.describe RegisterIngesterPsc::Snapshots::Apps::SnapshotDiscoverer do
   subject do
     described_class.new(
-      snapshot_link_scraper: snapshot_link_scraper,
-      snapshot_importer: snapshot_importer,
-      split_snapshots_s3_prefix: split_snapshots_s3_prefix
+      snapshot_link_scraper:,
+      snapshot_importer:,
+      split_snapshots_s3_prefix:,
     )
   end
 
@@ -23,12 +23,14 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Apps::SnapshotDiscoverer do
 
       allow(snapshot_importer).to receive(:import_from_url)
 
-      subject.call(import_id: import_id)
+      subject.call(import_id:)
 
       expect(snapshot_importer).to have_received(:import_from_url).with(
-        url1, "split_snapshots_s3_prefix/import_id=import1/url_index=0")
+        url1, "split_snapshots_s3_prefix/import_id=import1/url_index=0"
+      )
       expect(snapshot_importer).to have_received(:import_from_url).with(
-        url2, "split_snapshots_s3_prefix/import_id=import1/url_index=1")  
+        url2, "split_snapshots_s3_prefix/import_id=import1/url_index=1"
+      )
     end
   end
 end
