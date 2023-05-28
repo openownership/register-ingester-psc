@@ -12,7 +12,7 @@ module RegisterIngesterPsc
         def self.bash_call(args)
           import_id = args[0]
 
-          SnapshotDiscoverer.new.call(import_id: import_id)
+          SnapshotDiscoverer.new.call(import_id:)
         end
 
         def initialize(

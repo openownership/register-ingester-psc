@@ -21,7 +21,7 @@ module RegisterIngesterPsc
         )
           @s3_bucket = s3_bucket
           @stream_uploader_service = stream_uploader_service || RegisterCommon::Services::StreamUploaderService.new(
-            s3_adapter: Config::Adapters::S3_ADAPTER
+            s3_adapter: Config::Adapters::S3_ADAPTER,
           )
           @stream_decompressor = stream_decompressor || RegisterCommon::Decompressors::Decompressor.new
           @snapshot_downloader = snapshot_downloader || Services::SnapshotDownloader.new
@@ -33,9 +33,9 @@ module RegisterIngesterPsc
           Dir.mktmpdir do |tmpdir|
             local_path = File.join(tmpdir, 'snapshot.zip')
 
-            snapshot_downloader.download(url: url, local_path: local_path)
+            snapshot_downloader.download(url:, local_path:)
 
-            upload_file_chunks(local_path: local_path, dst_prefix: dst_prefix)
+            upload_file_chunks(local_path:, dst_prefix:)
           end
         end
 
@@ -47,15 +47,15 @@ module RegisterIngesterPsc
           File.open(local_path, 'rb') do |stream|
             stream_decompressor.with_deflated_stream(
               stream,
-              compression: RegisterCommon::Decompressors::CompressionTypes::ZIP
+              compression: RegisterCommon::Decompressors::CompressionTypes::ZIP,
             ) do |deflated|
               print("UPLOADING DEFLATED FROM #{local_path} TO #{dst_prefix}\n")
               stream_uploader_service.upload_in_parts(
                 deflated,
-                s3_bucket: s3_bucket,
+                s3_bucket:,
                 s3_prefix: dst_prefix,
-                split_size: split_size,
-                max_lines: max_lines
+                split_size:,
+                max_lines:,
               )
               print("UPLOADED DEFLATED FROM #{local_path} TO #{dst_prefix}\n")
             end

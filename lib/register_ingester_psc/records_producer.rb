@@ -11,12 +11,14 @@ module RegisterIngesterPsc
       buffer_size ||= 50
       serializer ||= RecordSerializer.new
 
-      @publisher = stream_name ? RegisterCommon::Services::Publisher.new(
-        stream_name: stream_name,
-        kinesis_adapter: kinesis_adapter,
-        buffer_size: buffer_size,
-        serializer: serializer
-      ) : nil
+      @publisher = if stream_name
+        RegisterCommon::Services::Publisher.new(
+          stream_name:,
+          kinesis_adapter:,
+          buffer_size:,
+          serializer:,
+        )
+      end
     end
 
     def produce(records)

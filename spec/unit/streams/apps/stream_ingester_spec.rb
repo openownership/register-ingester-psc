@@ -2,7 +2,7 @@ require 'json'
 require 'register_ingester_psc/streams/apps/stream_ingester'
 
 RSpec.describe RegisterIngesterPsc::Streams::Apps::StreamIngester do
-  subject { described_class.new(stream_client: stream_client, records_handler: records_handler) }
+  subject { described_class.new(stream_client:, records_handler:) }
 
   let(:stream_client) { double 'stream_client' }
   let(:records_handler) { double 'records_handler' }
@@ -12,10 +12,10 @@ RSpec.describe RegisterIngesterPsc::Streams::Apps::StreamIngester do
       timepoint = double 'timepoint'
       record = double 'record'
 
-      expect(stream_client).to receive(:read_stream).with(timepoint: timepoint).and_yield record
+      expect(stream_client).to receive(:read_stream).with(timepoint:).and_yield record
       allow(records_handler).to receive(:handle_records)
 
-      subject.call(timepoint: timepoint)
+      subject.call(timepoint:)
 
       expect(records_handler).to have_received(:handle_records).with([record])
     end
