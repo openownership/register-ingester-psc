@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:openownership/register-common.git
-  revision: 57192a04302c19625d4b4ca7175a8dd3944f96b7
+  revision: 99abf2db3884d2d8106026262c1750a1b1d6c2b9
   specs:
     register_common (0.1.0)
       activesupport (>= 6, < 8)
@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: git@github.com:openownership/register-sources-psc.git
-  revision: be9ffd1c7fc836753f1a1c014e051dac88ab19cb
+  revision: 7dcd200bddca4c99497d0676a9fd5bcacf807939
   specs:
     register_sources_psc (0.1.0)
       activesupport (>= 6, < 8)
@@ -43,7 +43,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.0.5)
+    activesupport (7.0.7)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -52,29 +52,29 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.771.0)
-    aws-sdk-athena (1.67.0)
-      aws-sdk-core (~> 3, >= 3.165.0)
+    aws-partitions (1.804.0)
+    aws-sdk-athena (1.74.0)
+      aws-sdk-core (~> 3, >= 3.177.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-core (3.173.1)
+    aws-sdk-core (3.180.3)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
       aws-sigv4 (~> 1.5)
       jmespath (~> 1, >= 1.6.1)
-    aws-sdk-firehose (1.51.0)
-      aws-sdk-core (~> 3, >= 3.165.0)
+    aws-sdk-firehose (1.56.0)
+      aws-sdk-core (~> 3, >= 3.177.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-kinesis (1.45.0)
-      aws-sdk-core (~> 3, >= 3.165.0)
+    aws-sdk-kinesis (1.50.0)
+      aws-sdk-core (~> 3, >= 3.177.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-kms (1.64.0)
-      aws-sdk-core (~> 3, >= 3.165.0)
+    aws-sdk-kms (1.71.0)
+      aws-sdk-core (~> 3, >= 3.177.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.122.0)
-      aws-sdk-core (~> 3, >= 3.165.0)
+    aws-sdk-s3 (1.132.1)
+      aws-sdk-core (~> 3, >= 3.179.0)
       aws-sdk-kms (~> 1)
-      aws-sigv4 (~> 1.4)
-    aws-sigv4 (1.5.2)
+      aws-sigv4 (~> 1.6)
+    aws-sigv4 (1.6.0)
       aws-eventstream (~> 1, >= 1.0.2)
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
@@ -85,7 +85,7 @@ GEM
       rexml
     diff-lcs (1.5.0)
     dotenv (2.8.1)
-    dry-core (1.0.0)
+    dry-core (1.0.1)
       concurrent-ruby (~> 1.0)
       zeitwerk (~> 2.6)
     dry-inflector (1.0.0)
@@ -139,29 +139,29 @@ GEM
       faraday (~> 1.0)
     geokit (1.13.1)
     hashdiff (1.0.1)
-    i18n (1.13.0)
+    i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     i18n_data (0.13.1)
     ice_nine (0.11.2)
     iso8601 (0.13.0)
     jmespath (1.6.2)
     json (2.6.3)
-    minitest (5.18.0)
+    minitest (5.19.0)
     multi_json (1.15.0)
     multipart-post (2.3.0)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
-    nokogiri (1.15.2-x86_64-linux)
+    nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     parallel (1.23.0)
     parser (3.2.2.1)
       ast (~> 2.4.1)
     public_suffix (5.0.0)
-    racc (1.6.2)
+    racc (1.7.1)
     rainbow (3.1.1)
-    redis (5.0.6)
+    redis (5.0.7)
       redis-client (>= 0.9.0)
-    redis-client (0.14.1)
+    redis-client (0.15.0)
       connection_pool
     regexp_parser (2.8.0)
     rexml (3.2.5)
@@ -210,7 +210,7 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     xxhash (0.5.0)
-    zeitwerk (2.6.8)
+    zeitwerk (2.6.11)
 
 PLATFORMS
   x86_64-linux
