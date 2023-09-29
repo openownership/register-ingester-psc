@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'tmpdir'
 require 'register_ingester_psc/snapshots/services/snapshot_downloader'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'register_ingester_psc/records_handler'
 
@@ -7,7 +9,7 @@ RSpec.describe RegisterIngesterPsc::RecordsHandler do
       repository:,
       producer:,
       roe_repository:,
-      roe_producer:,
+      roe_producer:
     )
   end
 
@@ -22,6 +24,7 @@ RSpec.describe RegisterIngesterPsc::RecordsHandler do
     let(:new_record) { double 'existing_record', roe?: false, data: double(etag: 'etag3') }
     let(:new_roe_record) { double 'existing_roe_record', roe?: true, data: double(etag: 'etag4') }
 
+    # rubocop:disable RSpec/ExpectInHook
     before do
       expect(repository).to receive(:get).with(existing_record.data.etag).and_return true
       expect(roe_repository).to receive(:get).with(existing_roe_record.data.etag).and_return true
@@ -34,6 +37,7 @@ RSpec.describe RegisterIngesterPsc::RecordsHandler do
       allow(producer).to receive(:finalize)
       allow(roe_producer).to receive(:finalize)
     end
+    # rubocop:enable RSpec/ExpectInHook
 
     it 'stores received records in repository' do
       subject.handle_records [existing_record, existing_roe_record, new_record, new_roe_record]

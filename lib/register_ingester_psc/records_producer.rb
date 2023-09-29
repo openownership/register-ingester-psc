@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_psc/config/settings'
 require 'register_ingester_psc/config/adapters'
 require 'register_ingester_psc/record_serializer'
@@ -12,13 +14,13 @@ module RegisterIngesterPsc
       serializer ||= RecordSerializer.new
 
       @publisher = if stream_name
-        RegisterCommon::Services::Publisher.new(
-          stream_name:,
-          kinesis_adapter:,
-          buffer_size:,
-          serializer:,
-        )
-      end
+                     RegisterCommon::Services::Publisher.new(
+                       stream_name:,
+                       kinesis_adapter:,
+                       buffer_size:,
+                       serializer:
+                     )
+                   end
     end
 
     def produce(records)

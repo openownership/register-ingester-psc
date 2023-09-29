@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_psc/snapshots/apps/snapshot_ingester'
 
 RSpec.describe RegisterIngesterPsc::Snapshots::Apps::SnapshotIngester do
@@ -7,7 +9,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Apps::SnapshotIngester do
       snapshot_reader:,
       records_handler:,
       s3_bucket:,
-      split_snapshots_s3_prefix:,
+      split_snapshots_s3_prefix:
     )
   end
 
@@ -27,17 +29,17 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Apps::SnapshotIngester do
 
       expect(s3_adapter).to receive(:list_objects).with(
         s3_bucket:,
-        s3_prefix: 'split_snapshots/s3_prefix/import_id=import1',
+        s3_prefix: 'split_snapshots/s3_prefix/import_id=import1'
       ).and_return s3_paths
 
       expect(snapshot_reader).to receive(:read_from_s3).with(
         s3_bucket:,
-        s3_path: s3_paths[0],
+        s3_path: s3_paths[0]
       ).and_yield records1
 
       expect(snapshot_reader).to receive(:read_from_s3).with(
         s3_bucket:,
-        s3_path: s3_paths[1],
+        s3_path: s3_paths[1]
       ).and_yield records2
 
       allow(records_handler).to receive(:handle_records)

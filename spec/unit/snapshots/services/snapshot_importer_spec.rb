@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_psc/snapshots/services/snapshot_importer'
 
 RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotImporter do
@@ -8,7 +10,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotImporter do
       stream_decompressor:,
       s3_bucket:,
       split_size:,
-      max_lines:,
+      max_lines:
     )
   end
 
@@ -36,7 +38,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotImporter do
       expect(File).to receive(:open).with(local_path, 'rb').and_yield fake_stream1
       expect(stream_decompressor).to receive(:with_deflated_stream).with(
         fake_stream1,
-        compression: RegisterCommon::Decompressors::CompressionTypes::ZIP,
+        compression: RegisterCommon::Decompressors::CompressionTypes::ZIP
       ).and_yield fake_stream2
 
       subject.import_from_url(url, dst_prefix)
@@ -47,7 +49,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotImporter do
         s3_bucket:,
         s3_prefix: dst_prefix,
         split_size:,
-        max_lines:,
+        max_lines:
       )
     end
   end

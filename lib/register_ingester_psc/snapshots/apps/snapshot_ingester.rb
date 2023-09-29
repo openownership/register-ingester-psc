@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_psc/config/settings'
 require 'register_ingester_psc/config/adapters'
 
@@ -14,7 +16,8 @@ module RegisterIngesterPsc
           SnapshotIngester.new.call(import_id:)
         end
 
-        def initialize(s3_adapter: nil, snapshot_reader: nil, records_handler: nil, s3_bucket: nil, split_snapshots_s3_prefix: nil)
+        def initialize(s3_adapter: nil, snapshot_reader: nil, records_handler: nil, s3_bucket: nil,
+                       split_snapshots_s3_prefix: nil)
           @s3_adapter = s3_adapter || RegisterIngesterPsc::Config::Adapters::S3_ADAPTER
           @snapshot_reader = snapshot_reader || Services::SnapshotReader.new
           @records_handler = records_handler || RecordsHandler.new

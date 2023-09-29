@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_psc/config/settings'
 require 'register_ingester_psc/snapshots/services/snapshot_link_scraper'
 require 'register_ingester_psc/snapshots/services/snapshot_importer'

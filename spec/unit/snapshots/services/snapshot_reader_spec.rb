@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_psc/snapshots/services/snapshot_reader'
 
 RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
@@ -7,7 +9,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
       row_processor:,
       decompressor:,
       parser:,
-      batch_size:,
+      batch_size:
     )
   end
 
@@ -26,17 +28,19 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
   let(:row1) { double 'row1' }
   let(:row2) { double 'row2' }
 
+  # rubocop:disable RSpec/ExpectInHook
   before do
     expect(RegisterCommon::Services::FileReader).to receive(:new).with(
       s3_adapter:,
       decompressor:,
       parser:,
-      batch_size:,
+      batch_size:
     ).and_return file_reader_service
 
     expect(row_processor).to receive(:process_row).with(fake_record1).and_return row1
     expect(row_processor).to receive(:process_row).with(fake_record2).and_return row2
   end
+  # rubocop:enable RSpec/ExpectInHook
 
   describe '#read_from_s3' do
     it 'yields processed rows' do
@@ -47,7 +51,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
         s3_bucket:,
         s3_path:,
         file_format:,
-        compression:,
+        compression:
       ).and_yield fake_record_batch
 
       results = []
@@ -55,15 +59,15 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
         s3_bucket:,
         s3_path:,
         file_format:,
-        compression:,
+        compression:
       ) do |batch|
         results << batch
       end
 
       expect(results).to eq(
         [
-          [row1, row2],
-        ],
+          [row1, row2]
+        ]
       )
     end
 
@@ -75,7 +79,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
         s3_bucket:,
         s3_path:,
         file_format: 'json',
-        compression: 'gzip',
+        compression: 'gzip'
       ).and_yield fake_record_batch
 
       results = []
@@ -85,8 +89,8 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
 
       expect(results).to eq(
         [
-          [row1, row2],
-        ],
+          [row1, row2]
+        ]
       )
     end
   end
@@ -98,22 +102,22 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
       expect(file_reader_service).to receive(:read_from_local_path).with(
         file_path,
         file_format:,
-        compression:,
+        compression:
       ).and_yield fake_record_batch
 
       results = []
       subject.read_from_local_path(
         file_path,
         file_format:,
-        compression:,
+        compression:
       ) do |batch|
         results << batch
       end
 
       expect(results).to eq(
         [
-          [row1, row2],
-        ],
+          [row1, row2]
+        ]
       )
     end
 
@@ -123,7 +127,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
       expect(file_reader_service).to receive(:read_from_local_path).with(
         file_path,
         file_format: 'json',
-        compression: 'gzip',
+        compression: 'gzip'
       ).and_yield fake_record_batch
 
       results = []
@@ -133,8 +137,8 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
 
       expect(results).to eq(
         [
-          [row1, row2],
-        ],
+          [row1, row2]
+        ]
       )
     end
   end
@@ -146,22 +150,22 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
       expect(file_reader_service).to receive(:read_from_stream).with(
         stream,
         file_format:,
-        compression:,
+        compression:
       ).and_yield fake_record_batch
 
       results = []
       subject.read_from_stream(
         stream,
         file_format:,
-        compression:,
+        compression:
       ) do |batch|
         results << batch
       end
 
       expect(results).to eq(
         [
-          [row1, row2],
-        ],
+          [row1, row2]
+        ]
       )
     end
 
@@ -171,7 +175,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
       expect(file_reader_service).to receive(:read_from_stream).with(
         stream,
         file_format: 'json',
-        compression: 'gzip',
+        compression: 'gzip'
       ).and_yield fake_record_batch
 
       results = []
@@ -181,8 +185,8 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotReader do
 
       expect(results).to eq(
         [
-          [row1, row2],
-        ],
+          [row1, row2]
+        ]
       )
     end
   end

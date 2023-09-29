@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_common/adapters/http_adapter'
 require 'register_common/adapters/kinesis_adapter'
 require 'register_common/adapters/s3_adapter'

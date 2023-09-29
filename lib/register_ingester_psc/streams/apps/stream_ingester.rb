@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'logger'
 
 require 'register_ingester_psc/config/settings'
@@ -25,7 +27,7 @@ module RegisterIngesterPsc
         def call(timepoint: nil)
           # "timepoint":4178539,"published_at":"2022-08-13T15:55:01"
           stream_client.read_stream(timepoint:) do |record|
-            print("GOT RECORD: ", record, "\n")
+            print('GOT RECORD: ', record, "\n")
             records_handler.handle_records([record])
 
             # TODO: store offset

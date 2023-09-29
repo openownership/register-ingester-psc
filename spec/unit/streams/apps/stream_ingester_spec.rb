@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'register_ingester_psc/streams/apps/stream_ingester'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_psc/snapshots/services/snapshot_link_scraper'
 
 RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotLinkScraper do
@@ -14,7 +16,7 @@ RSpec.describe RegisterIngesterPsc::Snapshots::Services::SnapshotLinkScraper do
       expect(http_adapter).to receive(:get).with(source_url).and_return html_response
 
       expect(subject.list_links).to eq(
-        (1..20).map { |i| "http://fake.companieshouse.gov.fake/psc-snapshot-2022-02-09_#{i}of20.zip" },
+        (1..20).map { |i| "http://fake.companieshouse.gov.fake/psc-snapshot-2022-02-09_#{i}of20.zip" }
       )
     end
   end
