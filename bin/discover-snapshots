@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'bundler/setup'
+
 require 'register_ingester_psc/snapshots/apps/snapshot_discoverer'
 
 RegisterIngesterPsc::Snapshots::Apps::SnapshotDiscoverer.bash_call ARGV

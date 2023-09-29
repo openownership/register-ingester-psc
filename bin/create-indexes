@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'register_ingester_psc/config/settings'
+require 'bundler/setup'
 
+require 'register_ingester_psc/config/settings'
 require 'register_sources_psc/services/es_index_creator'
 
 index_creator = RegisterSourcesPsc::Services::EsIndexCreator.new

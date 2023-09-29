@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'bundler/setup'
+
 require 'register_ingester_psc/config/settings'
-
 require 'register_sources_psc/config/elasticsearch'
-
 require 'register_sources_psc/repositories/company_record_repository'
+
 company_record_repository = RegisterSourcesPsc::Repositories::CompanyRecordRepository.new(
   client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT
 )

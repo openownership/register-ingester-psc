@@ -10,7 +10,7 @@ The structure of the data records and connection to the database is handled by t
 
 Ingest indexes:
 ```
-bin/run setup_indexes
+bin/run create-indexes
 ```
 
 ## Ingesting Snapshots
@@ -20,8 +20,8 @@ bin/run setup_indexes
 This stage will retrieve the list of snapshots linked to on http://download.companieshouse.gov.uk/en_pscdata.html.
 
 ```
-bin/run discover_snapshots {IMPORT_ID}
-bin/run discover_snapshots 2022_09_29
+bin/run discover-snapshots {IMPORT_ID}
+bin/run discover-snapshots 2022_09_29
 ```
 
 ### 2. Ingest Snapshots
@@ -29,8 +29,8 @@ bin/run discover_snapshots 2022_09_29
 This stage will iterate through the list of files uploaded to the designated prefix with the import id and ingest them into Elasticsearch.
 
 ```
-bin/run ingest_snapshots {IMPORT_ID}
-bin/run ingest_snapshots 2022_09_29
+bin/run ingest-snapshots {IMPORT_ID}
+bin/run ingest-snapshots 2022_09_29
 ```
 
 If the PSC_STREAM key is set, new records will also be published to the AWS Kinesis Stream.
@@ -40,7 +40,7 @@ If the PSC_STREAM key is set, new records will also be published to the AWS Kine
 This will connect to the PSC Stream API using the PSC_STREAM_API_KEY and consume any new records. These records will be ingested into Elasticsearch.
 
 ```
-bin/run ingest_streams
+bin/run ingest-streams
 ```
 
 If the PSC_STREAM key is set, new records will also be published to the AWS Kinesis Stream.
@@ -48,7 +48,7 @@ If the PSC_STREAM key is set, new records will also be published to the AWS Kine
 Optionally, a stream position can be provided and if valid (and not too old) then the records will be streamed from this position:
 
 ```
-bin/run ingest_streams {STREAM_POSITION}
+bin/run ingest-streams {STREAM_POSITION}
 ```
 
 ## Testing
