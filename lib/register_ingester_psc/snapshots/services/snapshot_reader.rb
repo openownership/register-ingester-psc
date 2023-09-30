@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_common/services/file_reader'
 require 'register_ingester_psc/snapshots/services/snapshot_row_processor'
 require 'register_ingester_psc/config/adapters'
@@ -22,7 +24,7 @@ module RegisterIngesterPsc
             s3_adapter: s3_adapter || Config::Adapters::S3_ADAPTER,
             decompressor:,
             parser:,
-            batch_size:,
+            batch_size:
           )
         end
 
@@ -31,7 +33,7 @@ module RegisterIngesterPsc
             s3_bucket:,
             s3_path:,
             file_format:,
-            compression:,
+            compression:
           ) do |batch|
             rows = batch.map { |row| row_processor.process_row(row) }
             yield rows

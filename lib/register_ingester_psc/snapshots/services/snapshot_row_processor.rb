@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_sources_psc/structs/company_record'
 
 module RegisterIngesterPsc
@@ -10,7 +12,7 @@ module RegisterIngesterPsc
 
           RegisterSourcesPsc::CompanyRecord[row]
         rescue StandardError
-          print "Row failed: ", row, "\n"
+          print 'Row failed: ', row, "\n"
           # raise e
           nil
         end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'base64'
 require 'json'
 require 'logger'
@@ -10,7 +12,7 @@ module RegisterIngesterPsc
   module Streams
     module Clients
       class PscStream
-        URL = "https://stream.companieshouse.gov.uk/persons-with-significant-control".freeze
+        URL = 'https://stream.companieshouse.gov.uk/persons-with-significant-control'
 
         def initialize(http_adapter: nil, api_key: nil)
           @http_adapter = http_adapter || RegisterIngesterPsc::Config::Adapters::HTTP_ADAPTER
@@ -22,20 +24,18 @@ module RegisterIngesterPsc
           http_adapter.get(
             URL,
             params: {
-              timepoint:,
+              timepoint:
             }.compact,
             headers: {
-              Authorization: "Basic #{basic_auth_key}",
-            },
+              Authorization: "Basic #{basic_auth_key}"
+            }
           ) do |content|
             logger.info "RECEIVED CONTENT: #{content}\n"
             parsed = JSON.parse(content, symbolize_names: true)
 
             resource_uri = parsed[:resource_uri]
             match = %r{/company/(?<company_number>\d+)/}.match(resource_uri)
-            if match
-              parsed[:company_number] = match[:company_number]
-            end
+            parsed[:company_number] = match[:company_number] if match
 
             yield RegisterSourcesPsc::PscStream.new(**parsed)
           end

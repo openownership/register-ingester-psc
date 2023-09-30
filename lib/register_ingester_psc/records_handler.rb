@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_psc/config/settings'
 require 'register_sources_psc/config/elasticsearch'
 require 'register_sources_psc/repositories/company_record_repository'
@@ -13,11 +15,11 @@ module RegisterIngesterPsc
       roe_producer: nil
     )
       @repository = repository || RegisterSourcesPsc::Repositories::CompanyRecordRepository.new(
-        client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT,
+        client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT
       )
       @producer = producer || RecordsProducer.new(stream_name: ENV.fetch('PSC_STREAM', nil))
       @roe_repository = roe_repository || RegisterSourcesPsc::Repositories::RegisteredOverseasRecordRepository.new(
-        client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT,
+        client: RegisterSourcesPsc::Config::ELASTICSEARCH_CLIENT
       )
       @roe_producer = roe_producer || RecordsProducer.new(stream_name: ENV.fetch('ROE_STREAM', nil))
     end
