@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  ingester-oc:
+  ingester-psc:
     build:
       context: .
       target: dev
