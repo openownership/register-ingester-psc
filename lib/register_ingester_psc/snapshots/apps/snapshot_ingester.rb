@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require 'register_ingester_psc/config/settings'
-require 'register_ingester_psc/config/adapters'
-
-require 'register_ingester_psc/snapshots/services/snapshot_reader'
-require 'register_ingester_psc/records_handler'
+require_relative '../../config/adapters'
+require_relative '../../config/settings'
+require_relative '../../records_handler'
+require_relative '../services/snapshot_reader'
 
 module RegisterIngesterPsc
   module Snapshots

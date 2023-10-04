@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require 'logger'
-
-require 'register_ingester_psc/config/settings'
 require 'register_sources_psc/config/elasticsearch'
 require 'register_sources_psc/repositories/company_record_repository'
-require 'register_ingester_psc/streams/clients/psc_stream'
-require 'register_ingester_psc/records_handler'
+
+require_relative '../../config/settings'
+require_relative '../../records_handler'
+require_relative '../clients/psc_stream'
 
 module RegisterIngesterPsc
   module Streams

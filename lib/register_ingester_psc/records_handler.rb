@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-require 'register_ingester_psc/config/settings'
 require 'register_sources_psc/config/elasticsearch'
 require 'register_sources_psc/repositories/company_record_repository'
 require 'register_sources_psc/repositories/registered_overseas_record_repository'
-require 'register_ingester_psc/records_producer'
+
+require_relative 'config/settings'
+require_relative 'records_producer'
 
 module RegisterIngesterPsc
   class RecordsHandler

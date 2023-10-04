@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 require 'register_common/services/file_reader'
-require 'register_ingester_psc/snapshots/services/snapshot_row_processor'
-require 'register_ingester_psc/config/adapters'
+
+require_relative '../../config/adapters'
+require_relative 'snapshot_row_processor'
 
 module RegisterIngesterPsc
   module Snapshots
     module Services
       class SnapshotReader
-        SNAPSHOT_FILE_FORMAT = RegisterCommon::Parsers::FileFormats::JSON
+        BATCH_SIZE           = 100
         SNAPSHOT_COMPRESSION = RegisterCommon::Decompressors::CompressionTypes::GZIP
-        BATCH_SIZE = 100
+        SNAPSHOT_FILE_FORMAT = RegisterCommon::Parsers::FileFormats::JSON
 
         def initialize(
           s3_adapter: nil,

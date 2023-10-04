@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'register_ingester_psc/config/adapters'
+require_relative '../../config/adapters'
 
 module RegisterIngesterPsc
   module Snapshots

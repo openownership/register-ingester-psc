@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'register_ingester_psc/config/settings'
+require_relative '../config/settings'
 
 module RegisterIngesterPsc
   module Streams
