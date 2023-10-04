@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require 'register_ingester_psc/config/settings'
-require 'register_ingester_psc/config/adapters'
-require 'register_ingester_psc/record_serializer'
 require 'register_common/services/publisher'
+
+require_relative 'config/adapters'
+require_relative 'config/settings'
+require_relative 'record_serializer'
 
 module RegisterIngesterPsc
   class RecordsProducer

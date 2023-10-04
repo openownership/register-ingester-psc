@@ -1,16 +1,13 @@
 # frozen_string_literal: true
 
-require 'register_ingester_psc/config/settings'
-require 'register_ingester_psc/snapshots/services/snapshot_link_scraper'
-require 'register_ingester_psc/snapshots/services/snapshot_importer'
+require_relative '../../config/settings'
+require_relative '../services/snapshot_importer'
+require_relative '../services/snapshot_link_scraper'
 
 module RegisterIngesterPsc
   module Snapshots
     module Apps
       class SnapshotDiscoverer
-        DEFAULT_SPLIT_SIZE = 250_000
-        DEFAULT_MAX_LINES = nil
-
         def self.bash_call(args)
           import_id = args[0]
 

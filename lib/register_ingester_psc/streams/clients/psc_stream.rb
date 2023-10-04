@@ -3,10 +3,10 @@
 require 'base64'
 require 'json'
 require 'logger'
-
 require 'register_sources_psc/structs/psc_stream'
-require 'register_ingester_psc/config/adapters'
-require 'register_ingester_psc/streams/config'
+
+require_relative '../../config/adapters'
+require_relative '../config'
 
 module RegisterIngesterPsc
   module Streams

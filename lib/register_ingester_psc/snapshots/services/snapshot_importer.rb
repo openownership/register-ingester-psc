@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
-require 'tmpdir'
-require 'register_common/services/stream_uploader_service'
 require 'register_common/decompressors/decompressor'
-require 'register_ingester_psc/config/adapters'
-require 'register_ingester_psc/snapshots/services/snapshot_downloader'
+require 'register_common/services/stream_uploader_service'
+require 'tmpdir'
+
+require_relative '../../config/adapters'
+require_relative 'snapshot_downloader'
 
 module RegisterIngesterPsc
   module Snapshots
     module Services
       class SnapshotImporter
         DEFAULT_SPLIT_SIZE = 250_000
-        DEFAULT_MAX_LINES = nil
+        DEFAULT_MAX_LINES  = nil
 
         # rubocop:disable Metrics/ParameterLists
         def initialize(
