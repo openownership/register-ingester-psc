@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+src_date=$1 # e.g. 2023-10-06
+
+src_date2="${src_date//-/_}"
+
+echo -e "\n=== Discovering snapshots"
+bin/discover-snapshots "$src_date2"
+
+echo -e "\n=== Ingesting snapshots into Elasticsearch"
+bin/ingest-snapshots "$src_date2"
