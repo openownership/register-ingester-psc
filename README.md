@@ -31,8 +31,6 @@ docker compose run ingester-psc test
 
 ## Usage
 
-Decide on an import ID relating to the data to download, e.g. `2023-10-06`. This is then used in subsequent commands.
-
 There are now three options:
 
 - ingest via snapshots by using the helper script
@@ -41,13 +39,15 @@ There are now three options:
 
 ### Snapshots using the helper script
 
-Import the bulk data from a snapshot:
+To ingest the bulk data from a snapshot (published daily):
 
 ```sh
-docker compose run ingester-psc import-bulk-data 2023-10-06
+docker compose run ingester-psc ingest-bulk
 ```
 
 ### Snapshots step-by-step
+
+Decide on an import ID relating to the data to download, e.g. `2023-10-06`. This is then used in subsequent commands.
 
 Discover snapshots by retrieving the [list of snapshots](https://download.companieshouse.gov.uk/en_pscdata.html):
 
