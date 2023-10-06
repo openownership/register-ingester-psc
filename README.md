@@ -1,89 +1,76 @@
 # Register Ingester PSC
 
-Register Ingester PSC is an application designed for use with the People with significant control (PSC) data published by Companies House in the UK. See http://download.companieshouse.gov.uk/en_pscdata.html for an example of their latest snapshot data.
+Register Ingester PSC is a data ingester for the [OpenOwnership](https://www.openownership.org/en/) [Register](https://github.com/openownership/register) project. It processes bulk data published about [People with Significant Control (PSC)](https://download.companieshouse.gov.uk/en_pscdata.html) published by Companies House in the UK, and ingests records into [Elasticsearch](https://www.elastic.co/elasticsearch/). Optionally, it can also publish new records to [AWS Kinesis](https://aws.amazon.com/kinesis/). It uses raw records only, and doesn't do any conversion into the [Beneficial Ownership Data Standard (BODS)](https://www.openownership.org/en/topics/beneficial-ownership-data-standard/) format.
 
-This application will ingest records from PSC Snapshots or their Stream API into an Elasticsearch database. Optionally, it will also publish newly discovered records into an AWS Kinesis Stream, which can be consumed for data transformations (eg into the BODS format).
+## Installation
 
-The structure of the data records and connection to the database is handled by the register_sources_psc gem (https://github.com/openownership/register-sources-psc).
+Install and boot [Register](https://github.com/openownership/register).
 
-## One-time Setup
+Configure your environment using the example file:
 
-Ingest indexes:
-```
-bin/run create-indexes
-```
-
-## Ingesting Snapshots
-
-### 1. Discover Snapshots
-
-This stage will retrieve the list of snapshots linked to on http://download.companieshouse.gov.uk/en_pscdata.html.
-
-```
-bin/run discover-snapshots {IMPORT_ID}
-bin/run discover-snapshots 2022_09_29
+```sh
+cp .env.example .env
 ```
 
-### 2. Ingest Snapshots
+- `PSC_STREAM`: AWS Kinesis stream to which to publish new records (optional)
+- `PSC_STREAM_API_KEY`: PSC Stream API registration key (optional; only necessary if ingesting via streams rather than snapshots)
 
-This stage will iterate through the list of files uploaded to the designated prefix with the import id and ingest them into Elasticsearch.
+Create the Elasticsearch indexes:
 
-```
-bin/run ingest-snapshots {IMPORT_ID}
-bin/run ingest-snapshots 2022_09_29
-```
-
-If the PSC_STREAM key is set, new records will also be published to the AWS Kinesis Stream.
-
-## Ingesting from Stream
-
-This will connect to the PSC Stream API using the PSC_STREAM_API_KEY and consume any new records. These records will be ingested into Elasticsearch.
-
-```
-bin/run ingest-streams
-```
-
-If the PSC_STREAM key is set, new records will also be published to the AWS Kinesis Stream.
-
-Optionally, a stream position can be provided and if valid (and not too old) then the records will be streamed from this position:
-
-```
-bin/run ingest-streams {STREAM_POSITION}
+```sh
+docker compose run ingester-psc create-indexes
 ```
 
 ## Testing
 
-First build the docker image with:
-```
-bin/build
-```
-Then tests can be executed by running:
-```
-bin/test
+Run the tests:
+
+```sh
+docker compose run ingester-psc test
 ```
 
-## Configuration
+## Usage
 
-```
-PSC_STREAM_API_KEY=
+Decide on an import ID relating to the data to download, e.g. `2023-10-06`. This is then used in subsequent commands.
 
-BODS_S3_BUCKET_NAME=
-BODS_AWS_REGION=
-BODS_AWS_ACCESS_KEY_ID=
-BODS_AWS_SECRET_ACCESS_KEY=
+There are now three options:
 
-SPLIT_SNAPSHOTS_S3_PREFIX=
+- ingest via snapshots by using the helper script
+- ingest via snapshots by running the commands step-by-step
+- ingest via streams by running the commands step-by-step (not fully functional)
 
-ELASTICSEARCH_HOST=
-ELASTICSEARCH_PORT=443
-ELASTICSEARCH_PROTOCOL=https
-ELASTICSEARCH_SSL_VERIFY=true
-ELASTICSEARCH_PASSWORD=
+### Snapshots using the helper script
 
-PSC_STREAM=
+Import the bulk data from a snapshot:
+
+```sh
+docker compose run ingester-psc import-bulk-data 2023-10-06
 ```
 
-- PSC_STREAM_API_KEY - This is a registration key to use the PSC stream API - only necessary if making use of the Streams functionality as opposed to snapshots
-- Elasticsearch credentials - these must be set
-- BODS_S3_BUCKET_NAME - This should be the name of the AWS Bucket for storage of the ingested files
-- PSC_STREAM - If this is set, newly discovered records (ie ones not previously ingested) will be published to the AWS Kinesis stream with this name
+### Snapshots step-by-step
+
+Discover snapshots by retrieving the [list of snapshots](https://download.companieshouse.gov.uk/en_pscdata.html):
+
+```sh
+docker compose run ingester-psc discover-snapshots 2023_10_06
+```
+
+Ingest snapshots by iterating through the list of files uploaded to the designated prefix with the import ID, and ingest them into Elasticsearch:
+
+```sh
+docker compose run ingester-psc ingest-snapshots 2023_10_06
+```
+
+### Streams step-by-step (not fully functional)
+
+Connect to the PSC Stream API, consume any new records, and ingest them into Elasticsearch (`PSC_STREAM_API_KEY` must be set):
+
+```sh
+docker compose run ingester-psc ingest-streams
+```
+
+Or to connect to the PSC Stream API using stream position `STREAM_POSITION` (if valid and not too old):
+
+```sh
+docker compose run ingester-psc ingest-streams <STREAM_POSITION>
+```
