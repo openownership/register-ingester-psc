@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+import_id=$(date +%Y_%m_%d)
+
+echo -e "\n=== [$import_id] Discovering snapshots"
+echo bin/discover-snapshots "$import_id"
+
+echo -e "\n=== [$import_id] Ingesting snapshots into Elasticsearch"
+echo bin/ingest-snapshots "$import_id"
