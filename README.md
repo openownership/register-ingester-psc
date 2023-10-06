@@ -13,7 +13,7 @@ cp .env.example .env
 ```
 
 - `PSC_STREAM`: AWS Kinesis stream to which to publish new records (optional)
-- `PSC_STREAM_API_KEY`: PSC Stream API registration key (optional; only necessary if ingesting via streams rather than snapshots)
+- `PSC_STREAM_API_KEY`: PSC Stream API registration key (optional; only necessary if ingesting via a stream rather than snapshots)
 
 Create the Elasticsearch indexes:
 
@@ -35,7 +35,7 @@ There are now three options:
 
 - ingest via snapshots by using the helper script
 - ingest via snapshots by running the commands step-by-step
-- ingest via streams by running the commands step-by-step (not fully functional)
+- ingest via a stream by running the commands step-by-step (not fully functional)
 
 ### Snapshots using the helper script
 
@@ -61,16 +61,16 @@ Ingest snapshots by iterating through the list of files uploaded to the designat
 docker compose run ingester-psc ingest-snapshots 2023_10_06
 ```
 
-### Streams step-by-step (not fully functional)
+### Stream step-by-step (not fully functional)
 
 Connect to the PSC Stream API, consume any new records, and ingest them into Elasticsearch (`PSC_STREAM_API_KEY` must be set):
 
 ```sh
-docker compose run ingester-psc ingest-streams
+docker compose run ingester-psc ingest-stream
 ```
 
 Or to connect to the PSC Stream API using stream position `STREAM_POSITION` (if valid and not too old):
 
 ```sh
-docker compose run ingester-psc ingest-streams <STREAM_POSITION>
+docker compose run ingester-psc ingest-stream <STREAM_POSITION>
 ```
