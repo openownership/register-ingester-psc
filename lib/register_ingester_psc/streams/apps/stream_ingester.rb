@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'logger'
-require 'register_sources_psc/config/elasticsearch'
-require 'register_sources_psc/repositories/company_record_repository'
 
 require_relative '../../config/settings'
 require_relative '../../records_handler'
