@@ -43,6 +43,5 @@ services:
       - ./lib:/home/x/r/lib
       - ./register_ingester_psc.gemspec:/home/x/r/register_ingester_psc.gemspec
       - ./spec:/home/x/r/spec
-version: "3.8"
 volumes:
   elasticsearch: {}
