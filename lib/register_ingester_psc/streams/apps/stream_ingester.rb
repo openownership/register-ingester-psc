@@ -37,6 +37,10 @@ module RegisterIngesterPsc
             @records_handler.handle_records([record])
             @redis.set(REDIS_TIMEPOINT, timepoint)
           end
+        rescue Streams::Clients::TimepointError
+          @logger.fatal 'INVALID TIMEPOINT'
+          @redis.del(REDIS_TIMEPOINT)
+          raise
         end
       end
     end
