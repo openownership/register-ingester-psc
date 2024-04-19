@@ -11,8 +11,8 @@ RSpec.describe RegisterIngesterPsc::Streams::Apps::StreamIngester do
 
   describe '#call' do
     it 'stores received records in repository' do
-      timepoint = double 'timepoint'
-      record = double 'record'
+      timepoint = 0
+      record = { event: { timepoint: 1 } }
 
       expect(stream_client).to receive(:read_stream).with(timepoint:).and_yield record
       allow(records_handler).to receive(:handle_records)

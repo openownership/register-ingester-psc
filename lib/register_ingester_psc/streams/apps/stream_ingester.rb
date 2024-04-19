@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'logger'
+require 'redis'
 
 require_relative '../../config/settings'
 require_relative '../../records_handler'
@@ -10,9 +11,12 @@ module RegisterIngesterPsc
   module Streams
     module Apps
       class StreamIngester
+        REDIS_NS = 'ingester-psc/'
+
+        REDIS_TIMEPOINT = "#{REDIS_NS}timepoint".freeze
+
         def self.bash_call(args)
           timepoint = args[0] && Integer(args[0])
-
           StreamIngester.new.call(timepoint:)
         end
 
@@ -20,21 +24,20 @@ module RegisterIngesterPsc
           @stream_client = stream_client || Streams::Clients::PscStream.new
           @records_handler = records_handler || RecordsHandler.new
           @logger = Logger.new($stdout)
+          @redis = Redis.new(url: ENV.fetch('REDIS_URL'))
         end
 
         def call(timepoint: nil)
-          # "timepoint":4178539,"published_at":"2022-08-13T15:55:01"
-          stream_client.read_stream(timepoint:) do |record|
-            print('GOT RECORD: ', record, "\n")
-            records_handler.handle_records([record])
-
-            # TODO: store offset
+          @redis.set(REDIS_TIMEPOINT, timepoint) if timepoint
+          timepoint = @redis.get(REDIS_TIMEPOINT)
+          timepoint = timepoint.to_i if timepoint
+          @stream_client.read_stream(timepoint:) do |record|
+            timepoint = record[:event][:timepoint]
+            @logger.info "[#{timepoint}] #{record[:resource_uri]}"
+            @records_handler.handle_records([record])
+            @redis.set(REDIS_TIMEPOINT, timepoint)
           end
         end
-
-        private
-
-        attr_reader :stream_client, :records_handler, :logger
       end
     end
   end
