@@ -10,6 +10,8 @@ require_relative '../config'
 module RegisterIngesterPsc
   module Streams
     module Clients
+      class TimepointError < StandardError; end
+
       class PscStream
         URL = 'https://stream.companieshouse.gov.uk/persons-with-significant-control'
 
@@ -19,6 +21,7 @@ module RegisterIngesterPsc
         end
 
         def read_stream(timepoint: nil)
+          timepoint_err = true
           @http_adapter.get(
             URL,
             params: {
@@ -28,12 +31,14 @@ module RegisterIngesterPsc
               Authorization: "Basic #{basic_auth_key}"
             }
           ) do |content|
+            timepoint_err = false
             parsed = JSON.parse(content, symbolize_names: true)
             resource_uri = parsed[:resource_uri]
             match = %r{/company/(?<company_number>\d+)/}.match(resource_uri)
             parsed[:company_number] = match[:company_number] if match
             yield RegisterSourcesPsc::PscStream.new(**parsed)
           end
+          raise TimepointError if timepoint_err
         end
 
         private
