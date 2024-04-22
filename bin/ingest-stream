@@ -3,6 +3,17 @@
 
 require 'bundler/setup'
 
+require 'airbrake-ruby'
 require 'register_ingester_psc/streams/apps/stream_ingester'
 
-RegisterIngesterPsc::Streams::Apps::StreamIngester.bash_call ARGV
+Airbrake.configure do |c|
+  c.project_id  = ENV.fetch('AIRBRAKE_PROJECT_ID', nil)
+  c.project_key = ENV.fetch('AIRBRAKE_API_KEY', nil)
+end
+
+begin
+  RegisterIngesterPsc::Streams::Apps::StreamIngester.bash_call ARGV
+rescue => e # rubocop:disable Style/RescueStandardError
+  Airbrake.notify_sync(e)
+  raise
+end
