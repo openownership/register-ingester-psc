@@ -1,1 +1,1 @@
-worker: bin/ingest-stream 1
+worker: bin/ingest-stream
