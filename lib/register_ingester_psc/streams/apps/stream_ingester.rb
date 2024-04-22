@@ -31,9 +31,10 @@ module RegisterIngesterPsc
           @redis.set(REDIS_TIMEPOINT, timepoint) if timepoint
           timepoint = @redis.get(REDIS_TIMEPOINT)
           timepoint = timepoint.to_i if timepoint
-          @stream_client.read_stream(timepoint:) do |record|
-            timepoint = record[:event][:timepoint]
-            @logger.info "[#{timepoint}] #{record[:resource_uri]}"
+          @stream_client.read_stream(timepoint:) do |stream_record|
+            timepoint = stream_record[:event][:timepoint]
+            @logger.info "[#{timepoint}] #{stream_record[:resource_uri]}"
+            record = RegisterSourcesPsc::CompanyRecord[stream_record]
             @records_handler.handle_records([record])
             @redis.set(REDIS_TIMEPOINT, timepoint)
           end
