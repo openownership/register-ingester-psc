@@ -33,7 +33,7 @@ module RegisterIngesterPsc
           ) do |content|
             timepoint_err = false
             parsed = JSON.parse(content, symbolize_names: true)
-            match = %r{/company/(?<company_number>\d+)/}.match(parsed[:resource_uri])
+            match = %r{/company/(?<company_number>\w+)/}.match(parsed[:resource_uri])
             parsed[:company_number] = match[:company_number] if match
             yield RegisterSourcesPsc::PscStream.new(**parsed)
           end
